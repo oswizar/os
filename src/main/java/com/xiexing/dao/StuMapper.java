@@ -10,10 +10,11 @@ public interface StuMapper {
 
     List<Stu> selectAllUser();
 
-    Stu addUser(Stu stu);
+    int addUser(Stu stu);
 
-    Stu removeUser(int id);
+    int removeUser(int id);
 
-    Stu modifyUser(Stu stu);
+    int modifyUser(Stu stu);
 
+    Stu selectUserByName(String name);
 }

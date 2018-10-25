@@ -6,14 +6,16 @@ import java.util.List;
 
 public interface IStuService {
 
-    public Stu selectUser(int id);
+    Stu selectUser(int id);
 
-    public List<Stu> selectAllUser();
+    List<Stu> selectAllUser();
 
-    public Stu addUser(Stu stu);
+    boolean addUser(Stu stu);
 
-    public Stu removeUser(int id);
+    boolean removeUser(int id);
 
-    public Stu modifyUser(Stu stu);
+    boolean modifyUser(Stu stu);
+
+    Stu selectUserByName(String name);
 
 }

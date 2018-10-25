@@ -6,12 +6,28 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>个人信息修改页面</title>
-
 </head>
 
 <body>
 <header>
 
+    <div class="head">
+        <div class="top">
+            <div class="wrapper">
+                <div class="dl fr">
+                    <ul>
+                        <li id="showName"></li>
+                        <li><a href="user_index.html" onclick="removeSession()">退出</a></li>
+                        <li><a href="user_info.html">个人中心</a></li>
+                        <li><a href="user_login.html">登录</a></li>
+                        <li><a href="user_regist.html">注册</a></li>
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 </header>
 
 <div class="wrapper border login-bg">
@@ -37,8 +53,8 @@
                 </dd>
             </dl>
         </div>
+        <div class="clearfix"></div>
     </div>
 </div>
-<div><li><a href="user_index.html" onclick="removeSession()">退出</a></li></div>
 </body>
 </html>

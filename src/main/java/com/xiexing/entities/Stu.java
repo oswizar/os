@@ -5,7 +5,7 @@ public class Stu {
 
     private String name;
 
-    private String pwd;
+    private String password;
 
     public Integer getId() {
         return id;
@@ -20,14 +20,23 @@ public class Stu {
     }
 
     public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+        this.name = name;
     }
 
-    public String getPwd() {
-        return pwd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd == null ? null : pwd.trim();
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "Stu{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

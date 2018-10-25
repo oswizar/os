@@ -4,11 +4,11 @@
   <resultMap id="BaseResultMap" type="com.xiexing.entities.Stu" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="pwd" property="pwd" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
   </resultMap>
 
   <sql id="Base_Column_List" >
-    id, name, pwd
+    id, name, password
   </sql>
 
   <select id="selectUser" resultType="com.xiexing.entities.Stu" parameterType="long">
@@ -19,7 +19,7 @@
     select * from stu
   </select>
 
-  <insert id="addUser"  parameterType="com.xiexing.entities.Stu">
+  <insert id="addUser"  parameterType="com.xiexing.entities.Stu" useGeneratedKeys="true" keyProperty="id">
     insert into stu (name,password) values (#{name},#{password})
   </insert>
 
@@ -33,5 +33,10 @@
     password = #{password}
     where id = #{id}
   </update>
+
+  <select id="selectUserByName" parameterType="string" resultType="com.xiexing.entities.Stu">
+    select * from stu where name = #{name}
+  </select>
+
 
 </mapper>
