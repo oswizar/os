@@ -29,8 +29,7 @@
 
   <update id="modifyUser"  parameterType="com.xiexing.entities.Stu">
     update stu set
-    name = #{name},
-    password = #{password}
+    name = #{name},password = #{password}
     where id = #{id}
   </update>
 

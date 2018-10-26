@@ -16,7 +16,7 @@ public class StuService implements IStuService {
     @Resource
     private StuMapper stuMapper;
 
-    private Logger logger= LoggerFactory.getLogger(this.getClass());
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public Stu selectUser(int id) {
@@ -33,14 +33,14 @@ public class StuService implements IStuService {
         boolean flag = false;
         try {
             int i = stuMapper.addUser(stu);
-            if(i>0){
+            if (i > 0) {
                 flag = true;
             }
         } catch (Exception e) {
             logger.info(e.getMessage());
         }
 
-        return flag ;
+        return flag;
     }
 
     @Override
@@ -51,8 +51,12 @@ public class StuService implements IStuService {
 
     @Override
     public boolean modifyUser(Stu stu) {
-        //return stuMapper.modifyUser(stu);
-        return false;
+        boolean flag = false;
+        int i = stuMapper.modifyUser(stu);
+        if (i > 0) {
+            flag = true;
+        }
+        return flag;
     }
 
     @Override
