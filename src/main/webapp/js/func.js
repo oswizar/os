@@ -1,3 +1,8 @@
+$(document).ready(function(){
+    showUser();
+});
+
+
 //注册
 function addUser() {
     var username = $("#name").val();
@@ -20,8 +25,8 @@ function addUser() {
             data: JSON.stringify(user),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-                var msg=data.msg;//注册失败
-                if(msg!="注册成功"){
+                var msg=data.msg;
+                if(msg!="注册成功"){//注册失败
                     alert(msg);
                 }
                 else {//注册成功
@@ -111,54 +116,38 @@ function updateUser() {
 
 }
 
-//查询所有用户
-function showUser() {
-    console.log('111111111')
-    var _url = "http://localhost:8080/os/user/allUser";
+//删除
+function removeUser() {
+    var id = $("#id").val();
+    var username = $("#name").val();
+    var password = $("#password").val();
+    var _url = "http://localhost:8080/os/user/removeUser";
+    var user = {
+        "id": id,
+        "name": username,
+        "password": password,
+    };
     $.ajax({
+        type: "POST",
         url: _url,
-        type:"POST",
-        // data: {},
+        data: JSON.stringify(user),
         dataType: "json",
         contentType: "application/json;charset=utf-8",
         success: function (data) {
-            var list = data;
-            console.log(list)
-            if(list!=null){
-                for(var i = 0;i<list.length;i++){
-                    $("#showUser").append(
-                        ' <tr>' +
-                        '<th>list[i].id</th>' +
-                        '<th>list[i].name</th>' +
-                        '<th>list[i].password</th>' +
-                        '</tr>'
-                    );
-                }
+            var msg = data.msg;
+            if(msg!="删除成功"){
+                alert(msg);
+            }
+            else {
+                alert(msg);
+                removeSession();
+                window.location.href ="http://localhost:8080/os/user_index.html";
             }
         }
     });
-
 }
 
-
-//删除
-function removeUser() {
-    var _url = "http://localhost:8080/os/user/removeUser";
-    alert("第" + id + "条数据已被删除！");
-    $.ajax({
-        type: "POST",
-        url: _url + "/" + id,
-        dataType: "json",
-        success: function (data) {
-            window.location.reload();
-        },
-        error: function (res) {
-            window.location.reload();
-        }
-    });
-}
-
-//退出
+//注销
 function removeSession() {
     window.sessionStorage.removeItem("user");
 }

@@ -9,6 +9,7 @@
         if (data != null) {
             var user = JSON.parse(data);
             $("#showName").html("用户["+user.name+"]已登录");
+            $("#id").val(user.id);
         } else {
             $("#showName").append("用户未登录");
         }
@@ -26,8 +27,10 @@
             <div class="wrapper">
                 <div class="dl fr">
                     <ul>
+                        <input type="text" id="id" style="display: none">
                         <li id="showName"></li>
-                        <li><a href="user_info.html">修改信息</a></li>
+                        <li><a href="user_info.html">修改用户</a></li>
+                        <li><a href="#" onclick="removeUser()">删除用户</a></li>
                         <li><a href="user_index.html">返回</a></li>
                     </ul>
 

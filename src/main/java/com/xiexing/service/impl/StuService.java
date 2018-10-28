@@ -45,8 +45,12 @@ public class StuService implements IStuService {
 
     @Override
     public boolean removeUser(int id) {
-        //return stuMapper.removeUser(id);
-        return false;
+        boolean flag = false;
+        int i = stuMapper.removeUser(id);
+        if (i > 0) {
+            flag = true;
+        }
+        return flag;
     }
 
     @Override
