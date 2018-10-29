@@ -25,115 +25,125 @@ public class StuController {
     private IStuService stuService;
     private Logger logger = Logger.getLogger(this.getClass());
 
-    //注册
-    @RequestMapping(value = "/showUser",  produces = "application/json;charset=utf-8")
+    /**
+     * 用户注册
+     *
+     * @param registUser
+     * @return
+     * @throws IOException
+     */
+    @RequestMapping(value = "/showUser", produces = "application/json;charset=utf-8")
     public Object postUser(@RequestBody Stu registUser) throws IOException {
-        Map<String,Object> msg = new HashMap<>();
+        Map<String, Object> msg = new HashMap<>();
         try {
             Stu user = stuService.selectUserByName(registUser.getName());
             if (user != null) {
-                msg.put("msg","账号已被注册");
+                msg.put("msg", "账号已被注册");
                 return msg;
             } else {
                 boolean flag = stuService.addUser(registUser);
                 System.out.println(flag);
                 if (flag) {
-                    msg.put("msg","注册成功");
+                    msg.put("msg", "注册成功");
                     return msg;
                 } else {
-                    msg.put("msg","注册失败");
+                    msg.put("msg", "注册失败");
                     return msg;
                 }
 
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            msg.put("msg","网络故障");
+            msg.put("msg", "网络故障");
             return msg;
         }
 
 
     }
 
-    //登录
-    @RequestMapping(value = "/loginUser",produces = "application/json;charset=utf-8")
-    public Object loginUser(@RequestBody Stu loginUser){
-        Map<String,Object> msg = new HashMap<>();
+    /**
+     * 用户登录
+     *
+     * @param loginUser
+     * @return
+     */
+    @RequestMapping(value = "/loginUser", produces = "application/json;charset=utf-8")
+    public Object loginUser(@RequestBody Stu loginUser) {
+        Map<String, Object> msg = new HashMap<>();
         try {
             Stu user = stuService.selectUserByName(loginUser.getName());
             System.out.println(user);
 
-            if(user==null){
-                msg.put("msg","账号不存在");
+            if (user == null) {
+                msg.put("msg", "账号不存在");
+                return msg;
+            } else if (!(user.getPassword().equals(loginUser.getPassword()))) {
+                msg.put("msg", "密码错误");
+                return msg;
+            } else {
+                msg.put("msg", "登录成功");
+                msg.put("user", user);
                 return msg;
             }
-            else if(!(user.getPassword().equals(loginUser.getPassword()))){
-                msg.put("msg","密码错误");
-                return msg;
-            }
-            else {
-                msg.put("msg","登录成功");
-                msg.put("user",user);
-                return msg;
-            }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            msg.put("msg","网络故障");
+            msg.put("msg", "网络故障");
             return msg;
         }
 
     }
 
 
-    //修改
-    @RequestMapping(value = "/updateUser",produces = "application/json;charset=utf-8")
-    public Object updateUser(@RequestBody Stu user){
-        Map<String,Object> msg = new HashMap<>();
+    /**
+     * 修改用户
+     *
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "/updateUser", produces = "application/json;charset=utf-8")
+    public Object updateUser(@RequestBody Stu user) {
+        Map<String, Object> msg = new HashMap<>();
         try {
             boolean flag = stuService.modifyUser(user);
             if (flag) {
-                msg.put("msg","修改成功");
+                msg.put("msg", "修改成功");
                 return msg;
             } else {
-                msg.put("msg","修改失败");
+                msg.put("msg", "修改失败");
                 return msg;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            msg.put("msg","网络故障");
+            msg.put("msg", "网络故障");
             return msg;
         }
 
     }
 
-    //删除
-    @RequestMapping(value = "/removeUser",produces = "application/json;charset=utf-8")
-    public Object removeUser(@RequestBody Stu user){
-        Map<String,Object> msg = new HashMap<>();
+    /**
+     * 删除用户
+     *
+     * @param user
+     * @return
+     */
+    @RequestMapping(value = "/removeUser", produces = "application/json;charset=utf-8")
+    public Object removeUser(@RequestBody Stu user) {
+        Map<String, Object> msg = new HashMap<>();
         int id = user.getId();
         try {
             boolean flag = stuService.removeUser(id);
             if (flag) {
-                msg.put("msg","删除成功");
+                msg.put("msg", "删除成功");
                 return msg;
             } else {
-                msg.put("msg","删除失败");
+                msg.put("msg", "删除失败");
                 return msg;
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            msg.put("msg","网络故障");
+            msg.put("msg", "网络故障");
             return msg;
         }
 
     }
-
-
-
-
-
-
-
-
-
 }

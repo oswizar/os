@@ -1,16 +1,11 @@
-$(document).ready(function(){
-    showUser();
-});
-
-
-//注册
+//用户注册
 function addUser() {
     var username = $("#name").val();
     var password = $("#password").val();
-    if(!username){
+    if (!username) {
         alert("账号不能为空");
     }
-    else if (!password){
+    else if (!password) {
         alert("密码不能为空");
     }
     else {
@@ -25,8 +20,8 @@ function addUser() {
             data: JSON.stringify(user),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-                var msg=data.msg;
-                if(msg!="注册成功"){//注册失败
+                var msg = data.msg;
+                if (msg != "注册成功") {//注册失败
                     alert(msg);
                 }
                 else {//注册成功
@@ -39,16 +34,16 @@ function addUser() {
 
 }
 
-//登录
+//用户登录
 function loginUser() {
     var username = $("#name").val();
     var password = $("#password").val();
-    if(!username){
+    if (!username) {
         alert("账号不能为空");
     }
-    else if (!password){
+    else if (!password) {
         alert("密码不能为空");
-    }else {
+    } else {
         var user = {
             "name": username,
             "password": password,
@@ -60,9 +55,9 @@ function loginUser() {
             data: JSON.stringify(user),
             contentType: "application/json;charset=utf-8",
             success: function (data) {
-                var msg=data.msg;
-                var  user=data.user;
-                if(msg!="登录成功"){//登录失败
+                var msg = data.msg;
+                var user = data.user;
+                if (msg != "登录成功") {//登录失败
                     alert(msg);
                 }
                 else {//登录成功
@@ -76,15 +71,15 @@ function loginUser() {
     }
 }
 
-//修改
+//修改用户
 function updateUser() {
     var id = $("#id").val();
     var username = $("#name").val();
     var password = $("#password").val();
-    if(!username){
+    if (!username) {
         alert("账号不能为空");
     }
-    else if (!password){
+    else if (!password) {
         alert("密码不能为空");
     }
     else {
@@ -101,7 +96,7 @@ function updateUser() {
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var msg = data.msg;
-                if(msg!="修改成功"){
+                if (msg != "修改成功") {
                     alert(msg);
                 }
                 else {
@@ -116,7 +111,7 @@ function updateUser() {
 
 }
 
-//删除
+//删除用户
 function removeUser() {
     var id = $("#id").val();
     var username = $("#name").val();
@@ -135,19 +130,19 @@ function removeUser() {
         contentType: "application/json;charset=utf-8",
         success: function (data) {
             var msg = data.msg;
-            if(msg!="删除成功"){
+            if (msg != "删除成功") {
                 alert(msg);
             }
             else {
                 alert(msg);
                 removeSession();
-                window.location.href ="http://localhost:8080/os/user_index.html";
+                window.location.href = "http://localhost:8080/os/user_index.html";
             }
         }
     });
 }
 
-//注销
+//销毁session
 function removeSession() {
     window.sessionStorage.removeItem("user");
 }

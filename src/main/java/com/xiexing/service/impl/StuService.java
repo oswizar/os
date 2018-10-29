@@ -28,6 +28,11 @@ public class StuService implements IStuService {
         return stuMapper.selectAllUser();
     }
 
+    /**
+     * 用户注册
+     * @param stu
+     * @return
+     */
     @Override
     public boolean addUser(Stu stu) {
         boolean flag = false;
@@ -43,6 +48,11 @@ public class StuService implements IStuService {
         return flag;
     }
 
+    /**
+     * 删除用户
+     * @param id
+     * @return
+     */
     @Override
     public boolean removeUser(int id) {
         boolean flag = false;
@@ -53,6 +63,11 @@ public class StuService implements IStuService {
         return flag;
     }
 
+    /**
+     * 修改用户
+     * @param stu
+     * @return
+     */
     @Override
     public boolean modifyUser(Stu stu) {
         boolean flag = false;
@@ -63,6 +78,11 @@ public class StuService implements IStuService {
         return flag;
     }
 
+    /**
+     * 用户查询
+     * @param name
+     * @return
+     */
     @Override
     public Stu selectUserByName(String name) {
         return stuMapper.selectUserByName(name);
