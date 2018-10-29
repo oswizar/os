@@ -8,7 +8,7 @@
         var data = window.sessionStorage.getItem("user");
         if (data != null) {
             var user = JSON.parse(data);
-            $("#showName").html("用户["+user.name+"]已登录");
+            $("#showName").html("用户[" + user.name + "]已登录");
             $("#id").val(user.id);
             $("#name").val(user.name);
             $("#password").val(user.password);
@@ -19,7 +19,7 @@
 </script>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>用户修改页面</title>
+    <title>用户信息修改页面</title>
 
 </head>
 
@@ -37,7 +37,7 @@
                 <input type="text" id="id" style="display: none">
                 <dd class="clearfix">
                     <span class="fl">帐 号：</span>
-                    <input type="text" id="name" class="fl shr" />
+                    <input type="text" id="name" class="fl shr"/>
                 </dd>
 
                 <dd class="clearfix">
@@ -48,12 +48,14 @@
 
                 <dd class="clearfix">
                     <span class="fl">&nbsp;</span>
-                    <input type="button" value="提 交" onclick="updateUser()" />
+                    <input type="button" value="提 交" onclick="updateUser()"/>
                 </dd>
             </dl>
         </div>
     </div>
 </div>
-<div><li><a href="user_ing.html">返回</a></li></div>
+<div>
+    <li><a href="user_ing.html">返回</a></li>
+</div>
 </body>
 </html>

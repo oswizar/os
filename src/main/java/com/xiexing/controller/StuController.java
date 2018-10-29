@@ -95,7 +95,7 @@ public class StuController {
 
 
     /**
-     * 修改用户
+     * 用户信息修改
      *
      * @param user
      * @return
@@ -129,8 +129,8 @@ public class StuController {
     @RequestMapping(value = "/removeUser", produces = "application/json;charset=utf-8")
     public Object removeUser(@RequestBody Stu user) {
         Map<String, Object> msg = new HashMap<>();
-        int id = user.getId();
         try {
+            int id = user.getId();
             boolean flag = stuService.removeUser(id);
             if (flag) {
                 msg.put("msg", "删除成功");

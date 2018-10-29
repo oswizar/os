@@ -28,7 +28,6 @@
 
     <dependencies>
 
-
         <!-- https://mvnrepository.com/artifact/org.apache.taglibs/taglibs-standard-impl -->
         <dependency>
             <groupId>org.apache.taglibs</groupId>
@@ -232,7 +231,6 @@
                         <target>1.8</target>
                     </configuration>
                 </plugin>
-
 
             </plugins>
         </pluginManagement>

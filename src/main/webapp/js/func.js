@@ -111,6 +111,16 @@ function updateUser() {
 
 }
 
+//删除确认提示
+function deleteIt() {
+    var msg = "你确定要删除当前账号吗?";
+    if (confirm(msg) == true) {
+        removeUser();  //确认删除
+    } else {
+        return false;
+    }
+}
+
 //删除用户
 function removeUser() {
     var id = $("#id").val();

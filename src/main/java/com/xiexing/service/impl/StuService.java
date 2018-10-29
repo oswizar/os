@@ -30,6 +30,7 @@ public class StuService implements IStuService {
 
     /**
      * 用户注册
+     *
      * @param stu
      * @return
      */
@@ -50,6 +51,7 @@ public class StuService implements IStuService {
 
     /**
      * 删除用户
+     *
      * @param id
      * @return
      */
@@ -64,7 +66,8 @@ public class StuService implements IStuService {
     }
 
     /**
-     * 修改用户
+     * 用户信息修改
+     *
      * @param stu
      * @return
      */
@@ -80,6 +83,7 @@ public class StuService implements IStuService {
 
     /**
      * 用户查询
+     *
      * @param name
      * @return
      */
