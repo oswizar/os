@@ -146,4 +146,29 @@ public class StuController {
         }
 
     }
+
+    /**
+     * 查询用户接口测试
+     *
+     * @return
+     */
+    @RequestMapping(value = "/allUser", produces = "application/json;charset=utf-8")
+    public Object allUser() {
+        Map<String, Object> msg = new HashMap<>();
+        try {
+            List<Stu> list = stuService.selectAllUser();
+            if (list.size() > 0) {
+                msg.put("list", list);
+                return msg;
+            } else {
+                msg.put("msg", "没有查询到数据");
+                return msg;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg.put("msg", "网络故障");
+            return msg;
+        }
+
+    }
 }

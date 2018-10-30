@@ -82,7 +82,7 @@ public class StuService implements IStuService {
     }
 
     /**
-     * 用户查询
+     * 用户查询测试
      *
      * @param name
      * @return
