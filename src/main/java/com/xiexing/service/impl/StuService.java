@@ -16,7 +16,7 @@ public class StuService implements IStuService {
     @Resource
     private StuMapper stuMapper;
 
-    private Logger logger= LoggerFactory.getLogger(this.getClass());
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public Stu selectUser(int id) {
@@ -28,33 +28,65 @@ public class StuService implements IStuService {
         return stuMapper.selectAllUser();
     }
 
+    /**
+     * 用户注册
+     *
+     * @param stu
+     * @return
+     */
     @Override
     public boolean addUser(Stu stu) {
         boolean flag = false;
         try {
             int i = stuMapper.addUser(stu);
-            if(i>0){
+            if (i > 0) {
                 flag = true;
             }
         } catch (Exception e) {
             logger.info(e.getMessage());
         }
 
-        return flag ;
+        return flag;
     }
 
+    /**
+     * 删除用户
+     *
+     * @param id
+     * @return
+     */
     @Override
     public boolean removeUser(int id) {
-        //return stuMapper.removeUser(id);
-        return false;
+        boolean flag = false;
+        int i = stuMapper.removeUser(id);
+        if (i > 0) {
+            flag = true;
+        }
+        return flag;
     }
 
+    /**
+     * 用户信息修改
+     *
+     * @param stu
+     * @return
+     */
     @Override
     public boolean modifyUser(Stu stu) {
-        //return stuMapper.modifyUser(stu);
-        return false;
+        boolean flag = false;
+        int i = stuMapper.modifyUser(stu);
+        if (i > 0) {
+            flag = true;
+        }
+        return flag;
     }
 
+    /**
+     * 用户查询测试
+     *
+     * @param name
+     * @return
+     */
     @Override
     public Stu selectUserByName(String name) {
         return stuMapper.selectUserByName(name);

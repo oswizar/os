@@ -1,12 +1,27 @@
-//注册
-function addUser() {
+var contextPath = "";
+$(document).ready(function () {
+    var curWwwPath = window.document.location.href;
+//获取主机地址之后的目录，如： uimcardprj/share/meun.jsp
+    var pathName = window.document.location.pathname;
+    var pos = curWwwPath.indexOf(pathName);
+//获取主机地址，如： http://localhost:8083
+    var localhostPaht = curWwwPath.substring(0, pos);
+//获取带"/"的项目名，如：/mdd-web
+    var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+//服务器前缀
+    contextPath = localhostPaht + projectName;
+    //alert(contextPath);
+});
 
+
+//用户注册
+function addUser() {
     var username = $("#name").val();
     var password = $("#password").val();
-    if(!username){
-        alert("账号不能为空");
+    if (!username) {
+        alert("账号不能为空" + contextPath);
     }
-    else if (!password){
+    else if (!password) {
         alert("密码不能为空");
     }
     else {
@@ -14,42 +29,7 @@ function addUser() {
             "name": username,
             "password": password,
         };
-        var _url = "http://localhost:8080/os/user/showUser";
-        $.ajax({
-            url: _url,
-            type: "POST",
-            data: JSON.stringify(user),
-            contentType: "application/json;charset=utf-8",
-
-            success: function (data) {
-                if(data!="注册成功"){
-                    alert(data);
-                }
-                else {//注册成功
-                    alert(data);
-                    window.location.href = "http://localhost:8080/os/user_index.html";
-                }
-            }
-        });
-    }
-
-}
-
-//登录
-function loginUser() {
-    var username = $("#name").val();
-    var password = $("#password").val();
-    if(!username){
-        alert("账号不能为空");
-    }
-    else if (!password){
-        alert("密码不能为空");
-    }else {
-        var user = {
-            "name": username,
-            "password": password,
-        };
-        var _url = "http://localhost:8080/os/user/loginUser";
+        var _url = contextPath + "/user/showUser";
         $.ajax({
             url: _url,
             type: "POST",
@@ -57,67 +37,138 @@ function loginUser() {
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 var msg = data.msg;
-                if(msg!="登录成功"){
+                if (msg != "注册成功") {//注册失败
                     alert(msg);
-
                 }
-                else {//登录成功
+                else {//注册成功
                     alert(msg);
-                    window.location.href = "http://localhost:8080/os/user_ing.html";
+                    window.location.href = contextPath + "/user_index.html";
                 }
             }
         });
     }
 
-
 }
 
-//修改
-function updateUser() {
+//用户登录
+function loginUser() {
     var username = $("#name").val();
     var password = $("#password").val();
-    var user = {
-        "id": $("#id").val(),
-        "username": $("#username").val(),
-        "password": $("#password").val(),
-        "email": $("#email").val(),
-        "role": $("#role").val(),
-        "status": $("#status").val(),
-        "regTime": new Date(),
-        "regIp": $("#regIp").val()
-    };
-    console.log(user);
-    var _url = "http://localhost:8080/os/user/updateUser";
-    $.ajax({
-        url: _url,
-        type: "POST",
-        data: user,
-        contentType: "application/x-www-form-urlencoded",
-    }).done(function (data) {
-        window.location.replace("http://localhost:8080/os/user_info.html");
-    }).fail(function (res) {
-        window.location.replace("http://localhost:8080/os/user_info.html");
-    });
+    if (!username) {
+        alert("账号不能为空");
+    }
+    else if (!password) {
+        alert("密码不能为空");
+    } else {
+        var user = {
+            "name": username,
+            "password": password,
+        };
+        var _url = contextPath + "/user/loginUser";
+        $.ajax({
+            url: _url,
+            type: "POST",
+            data: JSON.stringify(user),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var msg = data.msg;
+                var user = data.user;
+                if (msg != "登录成功") {//登录失败
+                    alert(msg);
+                }
+                else {//登录成功
+                    alert(msg);
+                    window.sessionStorage.setItem("user", JSON.stringify(user));
+                    window.location.replace(contextPath + "/user_ing.html");//不能返回上个页面
+                    //window.location.href= contextPath+"/user_ing.html";//能返回上个页面
+                }
+            }
+        });
+    }
 }
 
-//删除
-function removeUser(id) {
-    var _url = "http://localhost:8080/os/user/removeUser";
-    alert("第" + id + "条数据已被删除！");
+//修改用户
+function updateUser() {
+    var id = $("#id").val();
+    var username = $("#name").val();
+    var password = $("#password").val();
+    if (!username) {
+        alert("账号不能为空");
+    }
+    else if (!password) {
+        alert("密码不能为空");
+    }
+    else {
+        var user = {
+            "id": id,
+            "name": username,
+            "password": password,
+        };
+        var _url = contextPath + "/user/updateUser";
+        $.ajax({
+            url: _url,
+            type: "POST",
+            data: JSON.stringify(user),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                var msg = data.msg;
+                if (msg != "修改成功") {
+                    alert(msg);
+                }
+                else {
+                    alert(msg);
+                    removeSession();
+                    window.location.replace(contextPath + "/user_index.html");
+                }
+            }
+
+        });
+    }
+
+}
+
+//删除确认提示
+function deleteIt() {
+    var msg = "你确定要删除当前账号吗?";
+    if (confirm(msg) == true) {
+        removeUser();  //确认删除
+    } else {
+        return false;
+    }
+}
+
+//删除用户
+function removeUser() {
+    var id = $("#id").val();
+    var username = $("#name").val();
+    var password = $("#password").val();
+    var _url = contextPath + "/user/removeUser";
+    var user = {
+        "id": id,
+        "name": username,
+        "password": password,
+    };
     $.ajax({
-        type: "DELETE",
-        url: _url + "/" + id,
+        type: "POST",
+        url: _url,
+        data: JSON.stringify(user),
         dataType: "json",
+        contentType: "application/json;charset=utf-8",
         success: function (data) {
-            window.location.reload();
-        },
-        error: function (res) {
-            window.location.reload();
+            var msg = data.msg;
+            if (msg != "删除成功") {
+                alert(msg);
+            }
+            else {
+                alert(msg);
+                removeSession();
+                window.location.href = contextPath + "/user_index.html";
+            }
         }
     });
 }
 
-//退出
+//销毁session
 function removeSession() {
     window.sessionStorage.removeItem("user");
 }
